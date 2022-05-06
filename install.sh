@@ -31,9 +31,6 @@ python3 py3-virtualenv \
 python3-dev freetype-dev fribidi-dev harfbuzz-dev jpeg-dev lcms2-dev openjpeg-dev tcl-dev tiff-dev tk-dev zlib-dev \
 jq udev
 
-#sudo rc-update del mdev sysinit
-#sudo setup-udev
-
 case $CLIENT in
   fluidd)
     CLIENT_RELEASE_URL=`curl -s https://api.github.com/repos/fluidd-core/fluidd/releases | jq -r ".[0].assets[0].browser_download_url"`
