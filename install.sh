@@ -31,8 +31,8 @@ python3 py3-virtualenv \
 python3-dev freetype-dev fribidi-dev harfbuzz-dev jpeg-dev lcms2-dev openjpeg-dev tcl-dev tiff-dev tk-dev zlib-dev \
 jq udev
 
-sudo rc-update del mdev sysinit
-sudo setup-udev
+#sudo rc-update del mdev sysinit
+#sudo setup-udev
 
 case $CLIENT in
   fluidd)
