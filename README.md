@@ -1,9 +1,9 @@
 # alpine-klipper
 
-Automated klipper/moonraker/mainsail/fluidd installation script for Alpine Linux to use with [alpine-raspberry-pi](https://github.com/knoopx/alpine-raspberry-pi)
+Automated klipper/moonraker/mainsail/fluidd installation script for postmarketOS to use with [postmarketOS](https://postmarketos.org/)
 
 ## Usage
 
 ```bash
-curl -Ls https://raw.githubusercontent.com/FT256/alpine-klipper/master/install.sh | bash -s
+curl -Ls https://raw.githubusercontent.com/FT256/postmarketOS-klipper/master/install.sh | bash -s
 ```
