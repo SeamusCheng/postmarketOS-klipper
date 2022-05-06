@@ -1,4 +1,4 @@
-# alpine-klipper
+# postmarketOS-klipper
 
 Automated klipper/moonraker/mainsail/fluidd installation script for postmarketOS to use with [postmarketOS](https://postmarketos.org/)
 
