@@ -85,7 +85,7 @@ sudo service klipper start
 ################################################################################
 
 # 安装额外的软件包
-sudo apk add libsodium curl-dev
+sudo apk add libsodium curl-dev lmdb-dev patch py3-pip
 
 # 如果Moonraker目录不存在，则克隆Moonraker仓库
 test -d $MOONRAKER_PATH || git clone $MOONRAKER_REPO $MOONRAKER_PATH
@@ -94,12 +94,23 @@ test -d $MOONRAKER_VENV_PATH || virtualenv -p python3 $MOONRAKER_VENV_PATH
 
 # 修复Moonraker的依赖问题
 sed -i '/lmdb/d' $MOONRAKER_PATH/scripts/moonraker-requirements.txt
-git clone https://github.com/jnwatson/py-lmdb /tmp/lmdb
+test -d /tmp/lmdb || git clone https://github.com/jnwatson/py-lmdb /tmp/lmdb
+
+# 使用虚拟环境
 source $MOONRAKER_VENV_PATH/bin/activate
-LMDB_FORCE_SYSTEM=1 python3 /tmp/lmdb/setup.py build
+# 添加以下两行来确保 setuptools 和 pip 安装正确
+python -m pip install lmdb
+python3 -m ensurepip --default-pip
+python3 -m pip install --upgrade pip setuptools
+# 切换到 /tmp/lmdb 目录
+cd /tmp/lmdb
+# 在 /tmp/lmdb 目录中构建
+LMDB_FORCE_SYSTEM=1 python3 setup.py build
 $MOONRAKER_VENV_PATH/bin/pip install pytest
-pytest -k 'not testIterWithDeletes' $(echo /tmp/lmdb/build/lib*)
-LMDB_FORCE_SYSTEM=1 python3 /tmp/lmdb/setup.py install
+pytest -v -k 'not testIterWithDeletes' /tmp/lmdb/tests
+LMDB_FORCE_SYSTEM=1 python3 setup.py install
+# 切换回脚本的原始目录
+cd -
 deactivate
 
 # 安装Moonraker的依赖
