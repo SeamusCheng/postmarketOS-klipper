@@ -33,21 +33,22 @@ sudo apk add git unzip libffi-dev make gcc g++ \
 ncurses-dev avrdude gcc-avr binutils-avr avr-libc \
 python3 py3-virtualenv \
 python3-dev freetype-dev fribidi-dev harfbuzz-dev jpeg-dev lcms2-dev openjpeg-dev tcl-dev tiff-dev tk-dev zlib-dev \
-jq udev
+jq udev libsodium curl-dev lmdb-dev patch py3-pip
 
 # 根据选择的客户端安装相应的软件包
 case $CLIENT in
   fluidd)
-    CLIENT_RELEASE_URL=`curl -s https://api.github.com/repos/fluidd-core/fluidd/releases | jq -r ".[0].assets[0].browser_download_url"`
+    CLIENT_RELEASE_URL=$(curl -s https://api.github.com/repos/fluidd-core/fluidd/releases | jq -r '.[0].assets[0].browser_download_url')
     ;;
   mainsail)
-    CLIENT_RELEASE_URL=`curl -s https://api.github.com/repos/mainsail-crew/mainsail/releases | jq -r ".[0].assets[0].browser_download_url"`
+    CLIENT_RELEASE_URL=$(curl -s https://api.github.com/repos/mainsail-crew/mainsail/releases | jq -r '.[0].assets[0].browser_download_url')
     ;;
   *)
     echo "Unknown client $CLIENT (choose fluidd or mainsail)"
     exit 2
     ;;
 esac
+
 
 ################################################################################
 # 安装和配置 Klipper
@@ -83,9 +84,6 @@ sudo service klipper start
 ################################################################################
 # 安装和配置 Moonraker
 ################################################################################
-
-# 安装额外的软件包
-sudo apk add libsodium curl-dev lmdb-dev patch py3-pip
 
 # 如果Moonraker目录不存在，则克隆Moonraker仓库
 test -d $MOONRAKER_PATH || git clone $MOONRAKER_REPO $MOONRAKER_PATH
@@ -231,10 +229,10 @@ set -exo pipefail
 
 case \$CLIENT in
   fluidd)
-    CLIENT_RELEASE_URL=`curl -s https://api.github.com/repos/cadriel/fluidd/releases | jq -r ".[0].assets[0].browser_download_url"`
+    CLIENT_RELEASE_URL=$(curl -s https://api.github.com/repos/fluidd-core/fluidd/releases/latest | jq -r ".assets[0].browser_download_url")
     ;;
   mainsail)
-    CLIENT_RELEASE_URL=`curl -s https://api.github.com/repos/meteyou/mainsail/releases | jq -r ".[0].assets[0].browser_download_url"`
+    CLIENT_RELEASE_URL=$(curl -s https://api.github.com/repos/mainsail-crew/mainsail/releases/latest | jq -r ".assets[0].browser_download_url")
     ;;
   *)
     echo "Unknown client \$CLIENT (choose fluidd or mainsail)"
