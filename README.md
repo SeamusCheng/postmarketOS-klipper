@@ -5,5 +5,5 @@ Automated klipper/moonraker/mainsail/fluidd installation script for postmarketOS
 ## Usage
 
 ```bash
-curl -Ls https://raw.githubusercontent.com/FT256/postmarketOS-klipper/master/install.sh | bash -s
+curl -Ls https://raw.githubusercontent.com/SeamusCheng/postmarketOS-klipper/master/install.sh | bash -s
 ```
