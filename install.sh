@@ -33,7 +33,7 @@ sudo apk add git unzip libffi-dev make gcc g++ \
 ncurses-dev avrdude gcc-avr binutils-avr avr-libc \
 python3 py3-virtualenv \
 python3-dev freetype-dev fribidi-dev harfbuzz-dev jpeg-dev lcms2-dev openjpeg-dev tcl-dev tiff-dev tk-dev zlib-dev \
-jq udev libsodium curl-dev lmdb-dev patch py3-pip
+jq udev libsodium curl-dev lmdb-dev patch py3-pip caddy curl
 
 # 根据选择的客户端安装相应的软件包
 case $CLIENT in
@@ -132,7 +132,7 @@ EOF
 sudo chmod a+x /etc/init.d/moonraker
 
 # 创建Moonraker的配置文件
-cat > $HOME/moonraker.conf <<EOF
+cat > $CONFIG_PATH/moonraker.conf <<EOF
 [server]
 host: 0.0.0.0
 port: 7125
@@ -179,7 +179,7 @@ sudo service moonraker start
 ################################################################################
 
 # 安装Caddy和额外的软件包
-sudo apk add caddy curl
+
 
 # 创建Caddy的配置文件
 sudo tee /etc/caddy/Caddyfile <<EOF
