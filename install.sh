@@ -33,7 +33,7 @@ sudo apk add git unzip libffi-dev make gcc g++ \
 ncurses-dev avrdude gcc-avr binutils-avr avr-libc \
 python3 py3-virtualenv \
 python3-dev freetype-dev fribidi-dev harfbuzz-dev jpeg-dev lcms2-dev openjpeg-dev tcl-dev tiff-dev tk-dev zlib-dev \
-jq udev libsodium curl-dev lmdb-dev patch py3-pip caddy curl
+jq udev libsodium curl-dev lmdb-dev patch py3-pip caddy curl iproute2
 
 # 根据选择的客户端安装相应的软件包
 case $CLIENT in
